@@ -1,0 +1,73 @@
+* {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #030508;
+  color: #e2e8f0;
+  overflow-x: hidden;
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Glassmorphism Surface Base */
+.glass-card {
+  background: rgba(9, 13, 22, 0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 247, 255, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(0, 247, 255, 0.15);
+}
+
+.glass-card:hover svg {
+  filter: drop-shadow(0 0 8px rgba(0, 247, 255, 0.9));
+}
+
+/* Scanline Visual Texture Overlay */
+.scanlines {
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%),
+              linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Video Core Viewport (Paused B&W State) */
+.video-viewport {
+  position: relative;
+  filter: grayscale(100%) contrast(125%) brightness(0.85);
+  transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+  cursor: pointer;
+}
+
+/* Hover: Full Color */
+.video-viewport:hover {
+  filter: grayscale(0%) contrast(105%) brightness(1);
+  box-shadow: 0 0 35px rgba(0, 247, 255, 0.3);
+  transform: translateY(-4px) scale(1.015);
+}
+
+/* Click Action: Overclock Breached */
+.video-viewport.overclocked {
+  filter: grayscale(0%) contrast(120%) brightness(1.15) !important;
+  box-shadow: 0 0 50px rgba(255, 0, 60, 0.5), 0 0 20px rgba(0, 247, 255, 0.6) !important;
+  animation: glitch-vibe 0.3s infinite alternate;
+}
+
+@keyframes glitch-vibe {
+  0% { transform: translate(1px, 1px) scale(1.02); }
+  100% { transform: translate(-1px, -1px) scale(1.02); }
+}
